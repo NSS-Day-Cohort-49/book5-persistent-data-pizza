@@ -1,7 +1,6 @@
 // radio button list of all toppings in database
 import {getToppings, setOrderTopping} from "./data.js"
 
-const toppings = getToppings()
 
 document.addEventListener(
   "change",
@@ -11,9 +10,10 @@ document.addEventListener(
       setOrderTopping(parseInt(toppingId))
     }
   }
-)
+  )
 
 export const ToppingHTML = () => {
+  const toppings = getToppings()
   let html = "<ul class='choice--list topping--list'>"
 
   for (const topping of toppings) {

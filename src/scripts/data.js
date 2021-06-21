@@ -112,12 +112,14 @@ export const addCustomerOrder = () => {
 }
 
 
-
+// API interactions
 // getting data from our persistent state ( the database )
+const APIUrl = "http://localhost:8088"
+
 export const fetchCrusts = () => {
   console.log("first line of the function", Date.now())
   // Use HTTP GET request to ask for the crusts resource in our db
-  return fetch("http://localhost:8088/crusts")
+  return fetch(`${APIUrl}/crusts`)
   // We have to wait for the response to come back from the db
   // then() calls the function we give it, and it passes into the function the returned data
   .then( (response) => response.json())
@@ -129,11 +131,17 @@ export const fetchCrusts = () => {
 
 export const fetchSizes = () => {
   // Make an HTTP request to the db to get sizes data
-  return fetch("http://localhost:8088/sizes")
+  return fetch(`${APIUrl}/sizes`)
   // Turn the returned data into a JS array of objects
   .then( (response) => response.json())
   .then( (sizesArray) => {
     // Update the application state with the newly fetched sizes data
     applicationState.sizes = sizesArray
   })
+}
+
+export const fetchToppings = () => {
+  return fetch(`${APIUrl}/toppings`)
+  .then( (response) => response.json() )
+  .then( (toppingsData) => applicationState.toppings = toppingsData)
 }
