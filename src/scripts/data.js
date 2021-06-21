@@ -1,123 +1,9 @@
-const database = {
-  toppings: [
-    {
-      id: 1,
-      name: "black olives",
-      price: 1.25,
-      type: "veggie"
-    },
-    {
-      id: 2,
-      name: "pepperoni",
-      price: 2.25,
-      type: "meat"
-    },
-    {
-      id: 3,
-      name: "sausage",
-      price: 2.50,
-      type: "meat"
-    },
-    {
-      id: 4,
-      name: "onions",
-      price: 1.25,
-      type: "veggie"
-    },
-    {
-      id: 5,
-      name: "green peppers",
-      price: 1.25,
-      type: "veggie"
-    },
-    {
-      id: 6,
-      name: "meatball",
-      price: 2.25,
-      type: "meat"
-    },
-    {
-      id: 7,
-      name: "pineapple",
-      price: 1.25,
-      type: "disgusting"
-    },
-  ],
-  crusts: [
-    {
-      id: 1,
-      type: "deep dish",
-      price: 2
-    },
-    {
-      id: 2,
-      type: "NY style",
-      price: 1
-    },
-    {
-      id: 3,
-      type: "traditional hand tossed",
-      price: 0
-    }
-  ],
-  sizes: [
-    {
-      id: 1,
-      circumference: 12,
-      price: 7
-    },
-    {
-      id: 2,
-      circumference: 14,
-      price: 10
-    },
-    {
-      id: 3,
-      circumference: 16,
-      price: 12
-    }
-  ],
-  orders: [
-    {
-      id: 1,
-      sizeId: 2,
-      crustId: 2,
-      timestamp: 1620059468223
-    },
-    {
-      id: 2,
-      sizeId: 3,
-      crustId: 1,
-      timestamp: 1620059468300
-    }
-  ],
-  orders_toppings: [
-    {
-      id: 1,
-      orderId: 1,
-      toppingId: 1
-    },
-    {
-      id: 2,
-      orderId: 1,
-      toppingId: 4
-    },
-    {
-      id: 3,
-      orderId: 2,
-      toppingId: 3
-    },
-    {
-      id: 4,
-      orderId: 2,
-      toppingId: 5
-    },
-    {
-      id: 5,
-      orderId: 2,
-      toppingId: 1
-    },
-  ]
+const applicationState = {
+  crusts: [],
+  toppings: [],
+  sizes: [],
+  orders: [],
+  orders_toppings: []
 }
 
 let orderState = {toppings: []}
@@ -141,24 +27,25 @@ let orderState = {toppings: []}
 //     )
 // }
 
+// providing copies of application ( in memory) data
 export const getSizes = () => {
-  return [...database.sizes]
+  return [...applicationState.sizes]
 }
 
 export const getCrusts = () => {
-  return [...database.crusts]
+  return [...applicationState.crusts]
 }
 
 export const getToppings = () => {
-  return [...database.toppings]
+  return [...applicationState.toppings]
 }
 
 export const getOrders = () => {
-  return [...database.orders]
+  return [...applicationState.orders]
 }
 
 export const getOrdersToppings = () => {
-  return [...database.orders_toppings]
+  return [...applicationState.orders_toppings]
 }
 
 export const setOrderSize = (id) => {
@@ -222,4 +109,31 @@ export const addCustomerOrder = () => {
   }
 
   return false
+}
+
+
+
+// getting data from our persistent state ( the database )
+export const fetchCrusts = () => {
+  console.log("first line of the function", Date.now())
+  // Use HTTP GET request to ask for the crusts resource in our db
+  return fetch("http://localhost:8088/crusts")
+  // We have to wait for the response to come back from the db
+  // then() calls the function we give it, and it passes into the function the returned data
+  .then( (response) => response.json())
+  .then( (crustsArray) => {
+      console.log("this runs second", Date.now())
+      applicationState.crusts = crustsArray
+    })
+  }
+
+export const fetchSizes = () => {
+  // Make an HTTP request to the db to get sizes data
+  return fetch("http://localhost:8088/sizes")
+  // Turn the returned data into a JS array of objects
+  .then( (response) => response.json())
+  .then( (sizesArray) => {
+    // Update the application state with the newly fetched sizes data
+    applicationState.sizes = sizesArray
+  })
 }

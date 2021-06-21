@@ -7,7 +7,6 @@ import {
   getOrdersToppings
 } from "./data.js";
 
-console.log("Orders module initialized...");
 const crusts = getCrusts();
 const toppings = getToppings();
 const sizes = getSizes();

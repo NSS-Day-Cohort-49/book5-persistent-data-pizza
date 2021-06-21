@@ -1,8 +1,6 @@
 // radio button list of all sizes in database
 import {getSizes, setOrderSize} from "./data.js"
 
-const sizes = getSizes()
-
 document.addEventListener(
     "change",
     (changeEvent) => {
@@ -15,6 +13,8 @@ document.addEventListener(
 )
 
 export const SizeHTML = () => {
+    const sizes = getSizes()
+
     const sizeMenu = `
         <ul class="choice--list size--list">
         ${sizes.map( (size) => `

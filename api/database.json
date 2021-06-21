@@ -1,0 +1,121 @@
+{
+  "toppings": [
+    {
+      "id": 1,
+      "name": "black olives",
+      "price": 1.25,
+      "type": "veggie"
+    },
+    {
+      "id": 2,
+      "name": "pepperoni",
+      "price": 2.25,
+      "type": "meat"
+    },
+    {
+      "id": 3,
+      "name": "sausage",
+      "price": 2.50,
+      "type": "meat"
+    },
+    {
+      "id": 4,
+      "name": "onions",
+      "price": 1.25,
+      "type": "veggie"
+    },
+    {
+      "id": 5,
+      "name": "green peppers",
+      "price": 1.25,
+      "type": "veggie"
+    },
+    {
+      "id": 6,
+      "name": "meatball",
+      "price": 2.25,
+      "type": "meat"
+    },
+    {
+      "id": 7,
+      "name": "pineapple",
+      "price": 1.25,
+      "type": "disgusting"
+    }
+  ],
+  "crusts": [
+    {
+      "id": 1,
+      "type": "deep dish",
+      "price": 2
+    },
+    {
+      "id": 2,
+      "type": "NY style",
+      "price": 1
+    },
+    {
+      "id": 3,
+      "type": "traditional hand tossed",
+      "price": 0
+    }
+  ],
+  "sizes": [
+    {
+      "id": 1,
+      "circumference": 12,
+      "price": 7
+    },
+    {
+      "id": 2,
+      "circumference": 14,
+      "price": 10
+    },
+    {
+      "id": 3,
+      "circumference": 16,
+      "price": 12
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "sizeId": 2,
+      "crustId": 2,
+      "timestamp": 1620059468223
+    },
+    {
+      "id": 2,
+      "sizeId": 3,
+      "crustId": 1,
+      "timestamp": 1620059468300
+    }
+  ],
+  "orders_toppings": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "toppingId": 1
+    },
+    {
+      "id": 2,
+      "orderId": 1,
+      "toppingId": 4
+    },
+    {
+      "id": 3,
+      "orderId": 2,
+      "toppingId": 3
+    },
+    {
+      "id": 4,
+      "orderId": 2,
+      "toppingId": 5
+    },
+    {
+      "id": 5,
+      "orderId": 2,
+      "toppingId": 1
+    }
+  ]
+}

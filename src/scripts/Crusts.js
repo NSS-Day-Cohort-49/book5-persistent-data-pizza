@@ -1,19 +1,22 @@
 // radio button list of all crusts in database
 import {getCrusts, setOrderCrust} from "./data.js"
 
-const crusts = getCrusts()
+// can't put this here any more. Gets called too soon to work
+// const crusts = getCrusts()
 
 document.addEventListener(
-    "change",
-    (changeEvent) => {
-        if(changeEvent.target.name === "crust") {
-            const [prompt, crustId] = changeEvent.target.value.split("--")
+  "change",
+  (changeEvent) => {
+    if(changeEvent.target.name === "crust") {
+      const [prompt, crustId] = changeEvent.target.value.split("--")
 
-            setOrderCrust(parseInt(crustId))
-        }
+      setOrderCrust(parseInt(crustId))
     }
-)
-export const CrustHTML = () => {
+  }
+  )
+
+  export const CrustHTML = () => {
+    const crusts = getCrusts()
 
     let html = "<ul class='choice--list crust--list'>"
 
