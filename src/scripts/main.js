@@ -13,6 +13,8 @@ const render = () => {
 document.addEventListener(
   "dbStateChanged",
   () => {
+    console.log('Order placed! Yay!');
+
     render()
   }
 )

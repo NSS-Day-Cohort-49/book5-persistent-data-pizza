@@ -15,7 +15,7 @@
     {
       "id": 3,
       "name": "sausage",
-      "price": 2.50,
+      "price": 2.5,
       "type": "meat"
     },
     {
@@ -89,6 +89,36 @@
       "sizeId": 3,
       "crustId": 1,
       "timestamp": 1620059468300
+    },
+    {
+      "crustId": 2,
+      "sizeId": 1,
+      "timestamp": 1624376740124,
+      "id": 3
+    },
+    {
+      "crustId": 2,
+      "sizeId": 1,
+      "timestamp": 1624378732398,
+      "id": 4
+    },
+    {
+      "crustId": 1,
+      "sizeId": 1,
+      "timestamp": 1624378890492,
+      "id": 5
+    },
+    {
+      "crustId": 3,
+      "sizeId": 2,
+      "timestamp": 1624379033689,
+      "id": 6
+    },
+    {
+      "crustId": 3,
+      "sizeId": 2,
+      "timestamp": 1624379085395,
+      "id": 7
     }
   ],
   "orders_toppings": [
@@ -116,6 +146,66 @@
       "id": 5,
       "orderId": 2,
       "toppingId": 1
+    },
+    {
+      "orderId": 3,
+      "toppingId": 2,
+      "id": 6
+    },
+    {
+      "orderId": 3,
+      "toppingId": 4,
+      "id": 7
+    },
+    {
+      "orderId": 3,
+      "toppingId": 7,
+      "id": 8
+    },
+    {
+      "orderId": 4,
+      "toppingId": 3,
+      "id": 9
+    },
+    {
+      "orderId": 4,
+      "toppingId": 4,
+      "id": 10
+    },
+    {
+      "orderId": 5,
+      "toppingId": 5,
+      "id": 11
+    },
+    {
+      "orderId": 5,
+      "toppingId": 6,
+      "id": 12
+    },
+    {
+      "orderId": 6,
+      "toppingId": 6,
+      "id": 13
+    },
+    {
+      "orderId": 6,
+      "toppingId": 2,
+      "id": 14
+    },
+    {
+      "orderId": 6,
+      "toppingId": 1,
+      "id": 15
+    },
+    {
+      "orderId": 7,
+      "toppingId": 2,
+      "id": 16
+    },
+    {
+      "orderId": 7,
+      "toppingId": 3,
+      "id": 17
     }
   ]
 }

@@ -3,10 +3,13 @@ const applicationState = {
   toppings: [],
   sizes: [],
   orders: [],
-  orders_toppings: []
+  orders_toppings: [],
+  orderState: {
+    toppings: []
+  }
 }
 
-let orderState = {toppings: []}
+const APIUrl = "http://localhost:8088"
 
 // const calcId = (arr) => {
 //   const lastIndex = arr.length - 1
@@ -49,27 +52,27 @@ export const getOrdersToppings = () => {
 }
 
 export const setOrderSize = (id) => {
-  orderState.sizeId = id
+  applicationState.orderState.sizeId = id
 }
 
 export const setOrderCrust = (id) => {
-  orderState.crustId = id
+  applicationState.orderState.crustId = id
 }
 
 export const setOrderTopping = (id) => {
-  if (!orderState.toppings.includes(id)) {
-    orderState.toppings.push(id)
+  if (!applicationState.orderState.toppings.includes(id)) {
+    applicationState.orderState.toppings.push(id)
   } else {
-    orderState.toppings = orderState.toppings.filter( (toppingId) => toppingId !== id)
+    applicationState.orderState.toppings = applicationState.orderState.toppings.filter( (toppingId) => toppingId !== id)
   }
-  console.log(orderState.toppings)
+  console.log(applicationState.orderState.toppings)
 }
 
 const validOrder = () => {
   return (
-    orderState.toppings.length > 0 &&
-    "crustId" in orderState &&
-    "sizeId" in orderState
+    applicationState.orderState.toppings.length > 0 &&
+    "crustId" in applicationState.orderState &&
+    "sizeId" in applicationState.orderState
   )
 }
 
@@ -77,33 +80,53 @@ export const addCustomerOrder = () => {
   if (validOrder()) {
     // Copy the current state of user choices, excpet for toppings, which will be stored in a join table!
     const newOrder = {
-      crustId: orderState.crustId,
-      sizeId: orderState.sizeId,
+      crustId: applicationState.orderState.crustId,
+      sizeId: applicationState.orderState.sizeId,
     }
-
-    // Add a new primary key to the object
-    const lastIndex = database.orders.length - 1
-    newOrder.id = lastIndex >= 0 ? database.orders[lastIndex].id + 1 : 1
 
     // Add a timestamp to the order
     newOrder.timestamp = Date.now()
 
     // Add the new order object to custom orders state
-    database.orders.push(newOrder)
+    // database.orders.push(newOrder)
 
-    // Add new records of relatioship between topping(s) and the new order
-    for (const tId of orderState.toppings) {
-      const newOrderTopping = {
-        id:  database.orders_toppings.length - 1 >= 0 ? database.orders_toppings[lastIndex].id + 1 : 1,
-        orderId: newOrder.id,
-        toppingId: tId
+    fetch(`${APIUrl}/orders`, {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newOrder)
+    })
+    .then((response) => response.json())
+    .then((newOrderWithId) => {
+      const orderToppingsFetchCalls = []
+      // Add new records of relatioship between topping(s) and the new order
+      for (const tId of applicationState.orderState.toppings) {
+        const newOrderTopping = {
+          orderId: newOrderWithId.id,
+          toppingId: tId
+        }
+        orderToppingsFetchCalls.push(fetch(`${APIUrl}/orders_toppings`, {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newOrderTopping)
+        }))
       }
-      database.orders_toppings.push(newOrderTopping)
-    }
+
+      // This allows us to wait until ALL order_toppings records have been created before re-rendering all of our orders
+      Promise.all(orderToppingsFetchCalls)
+      .then( () => {
+        document.dispatchEvent(new CustomEvent("dbStateChanged"));
+      })
+
+    });
+
     // Reset the temporary state for user choices
-    orderState = {toppings: []}
+    //orderState = {toppings: []}
     // Broadcast a notification that permanent state has changed
-    document.dispatchEvent(new CustomEvent("dbStateChanged"))
+    //document.dispatchEvent(new CustomEvent("dbStateChanged"))
 
     return true
   }
@@ -114,17 +137,14 @@ export const addCustomerOrder = () => {
 
 // API interactions
 // getting data from our persistent state ( the database )
-const APIUrl = "http://localhost:8088"
 
 export const fetchCrusts = () => {
-  console.log("first line of the function", Date.now())
   // Use HTTP GET request to ask for the crusts resource in our db
   return fetch(`${APIUrl}/crusts`)
   // We have to wait for the response to come back from the db
   // then() calls the function we give it, and it passes into the function the returned data
   .then( (response) => response.json())
   .then( (crustsArray) => {
-      console.log("this runs second", Date.now())
       applicationState.crusts = crustsArray
     })
   }
