@@ -22,7 +22,6 @@ export const PizzaParlor = () => {
             ${ToppingHTML()}
         </article>
     </div>
-    <article id="side_order">
     </article>
       ${SubmitOrderButton()}
     <article>

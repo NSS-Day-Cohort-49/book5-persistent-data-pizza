@@ -7,14 +7,14 @@ import {
   getOrdersToppings
 } from "./data.js";
 
-const crusts = getCrusts();
-const toppings = getToppings();
-const sizes = getSizes();
 
 export const Orders = () => {
 
+  const crusts = getCrusts();
+  const toppings = getToppings();
+  const sizes = getSizes();
   const orders = getOrders();
-  const ordersToppings = getOrdersToppings()
+  const ordersToppings = getOrdersToppings();
 
   const arrayOfOrderHTMLStrings = orders.map((order) => {
     let totalCost = 0
@@ -57,14 +57,17 @@ export const Orders = () => {
     // Return the HTML representation of the order
     return `
         <div class="order">
-            Order #${order.id} placed at
-            ${new Date(order.timestamp).toLocaleString()},
-            is a ${foundSize.circumference}-inch ${foundCrust.type}
-            with ${foundToppings.map( topping => topping.name).join(" and ")},
-            for a cost of ${totalCost.toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD",
-            })}. Yum.
+            <div>
+              Order #${order.id} placed at
+              ${new Date(order.timestamp).toLocaleString()},
+              is a ${foundSize.circumference}-inch ${foundCrust.type}
+              with ${foundToppings.map( topping => topping.name).join(" and ")},
+              for a cost of ${totalCost.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}. Yum.
+            </div>
+            <button class="orderDelete" id="orderDelete">delete</button>
         </div>
     `;
   });

@@ -1,3 +1,21 @@
 .choice-list-item {
   list-style-type: none;
 }
+
+.ingredients--container {
+  display: flex;
+}
+
+.order {
+  margin-bottom: 1rem;
+  border: 1px solid green;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.orderDelete {
+  width: 20%;
+  margin-top: 8px;
+}

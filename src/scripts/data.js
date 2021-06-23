@@ -51,6 +51,7 @@ export const getOrdersToppings = () => {
   return [...applicationState.orders_toppings]
 }
 
+// Add user form selections to application state
 export const setOrderSize = (id) => {
   applicationState.orderState.sizeId = id
 }
@@ -164,4 +165,16 @@ export const fetchToppings = () => {
   return fetch(`${APIUrl}/toppings`)
   .then( (response) => response.json() )
   .then( (toppingsData) => applicationState.toppings = toppingsData)
+}
+
+export const fetchOrders = () => {
+  return fetch(`${APIUrl}/orders`)
+  .then( (response) => response.json() )
+  .then( (ordersData) => applicationState.orders = ordersData)
+}
+
+export const fetchOrdersToppings = () => {
+  return fetch(`${APIUrl}/orders_toppings`)
+  .then( (response) => response.json() )
+  .then( (otData) => applicationState.orders_toppings = otData)
 }
