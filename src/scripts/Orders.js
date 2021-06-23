@@ -4,9 +4,17 @@ import {
   getOrders,
   getToppings,
   getSizes,
-  getOrdersToppings
+  getOrdersToppings,
+  deleteOrder
 } from "./data.js";
 
+document.addEventListener("click", (event) => {
+  if(event.target.name === "orderDelete") {
+    // delete an order
+    // delete related order toppings
+    deleteOrder(event.target.id)
+  }
+})
 
 export const Orders = () => {
 
@@ -67,7 +75,7 @@ export const Orders = () => {
                 currency: "USD",
               })}. Yum.
             </div>
-            <button class="orderDelete" id="orderDelete">delete</button>
+            <button class="orderDelete" id=${order.id} name="orderDelete">delete</button>
         </div>
     `;
   });

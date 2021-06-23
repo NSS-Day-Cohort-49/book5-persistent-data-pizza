@@ -178,3 +178,13 @@ export const fetchOrdersToppings = () => {
   .then( (response) => response.json() )
   .then( (otData) => applicationState.orders_toppings = otData)
 }
+
+// DELETE
+export const deleteOrder = (id) => {
+  return fetch(`${APIUrl}/orders/${id}`, {
+    method: "DELETE"
+  })
+  .then(
+    () => document.dispatchEvent(new CustomEvent("dbStateChanged"))
+  )
+}
